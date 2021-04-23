@@ -1,16 +1,17 @@
 import format from "date-fns/format";
 import { ptBR } from "date-fns/locale";
 import parseISO from "date-fns/parseISO";
+
 import Link from "next/link";
+import Head from "next/head";
+import Image from "next/image";
 
 import { GetStaticPaths, GetStaticProps } from "next";
-import Image from "next/image";
 import { api } from "../../services/api";
-
 import { useContext } from "react";
 import { PlayerContext } from "../../contexts/PlayerContext";
-
 import { convertDurationToTimeString } from "../../utils/convertDurationToTimeString";
+
 import styles from "./episode.module.scss";
 
 type Episode = {
@@ -34,6 +35,10 @@ export default function Episodes({ episode }: EpisodeProps) {
 
   return (
     <div className={styles.episode}>
+      <Head>
+        <title> {episode.title} | Podcastr </title>
+      </Head>
+
       <div className={styles.thumbnailContainer}>
         <Link href="/">
           <button type="button">
