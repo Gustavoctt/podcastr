@@ -7,6 +7,9 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
 import { api } from "../../services/api";
 
+import { useContext } from "react";
+import { PlayerContext } from "../../contexts/PlayerContext";
+
 import { convertDurationToTimeString } from "../../utils/convertDurationToTimeString";
 import styles from "./episode.module.scss";
 
@@ -27,6 +30,8 @@ type EpisodeProps = {
 };
 
 export default function Episodes({ episode }: EpisodeProps) {
+  const { play } = useContext(PlayerContext);
+
   return (
     <div className={styles.episode}>
       <div className={styles.thumbnailContainer}>
@@ -41,7 +46,7 @@ export default function Episodes({ episode }: EpisodeProps) {
           src={episode.thumbnail}
           objectFit="cover"
         />
-        <button type="button">
+        <button type="button" onClick={() => play(episode)}>
           <img src="/play.svg" alt="Tocar episódio" />
         </button>
       </div>
